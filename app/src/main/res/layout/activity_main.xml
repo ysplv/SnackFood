@@ -1,16 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.administrator.mysnack.MainActivity">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.example.administrator.mysnack.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <FrameLayout
+        android:id="@+id/fragmentContent_activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/layout_main">
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_main"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layout_home_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="click"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_home_main"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/home_dot"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="13dp"
+                android:text="首页"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_sale_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="click"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_sale_main"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/sale_dot"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="13dp"
+                android:text="特卖"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_subject_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="click"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_subject_main"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/subject_dot"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="13dp"
+                android:text="专题"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_mine_main"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="click"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_mine_main"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/mine_dot"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="13dp"
+                android:text="我的"/>
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
