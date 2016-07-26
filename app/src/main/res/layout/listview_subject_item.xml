@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_margin="10dp">
+    <ImageView
+        android:id="@+id/image_subject_item"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/default_class_brand612_250" />
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_cart_operation">
+        <ImageView
+            android:id="@+id/image_heart_subject_item"
+            android:src="@drawable/collect_dot"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+        <TextView
+            android:id="@+id/text_hotindex_subject_item"
+            android:textColor="#ffffffff"
+            android:textSize="12sp"
+            android:text="1294"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/text_title_subject_item"
+        android:textColor="#ffffffff"
+        android:textSize="15sp"
+        android:layout_marginBottom="15dp"
+        android:layout_alignParentBottom="true"
+        android:text="哈哈哈哈哈哈"
+        android:singleLine="true"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>
+
+</LinearLayout>
