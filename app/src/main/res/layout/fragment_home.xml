@@ -11,18 +11,19 @@
 
         <ImageView
             android:id="@+id/iv_launch_homeFragment"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:src="@mipmap/ic_launcher1"/>
 
         <LinearLayout
-            android:layout_width="260dp"
-            android:layout_height="50dp"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
             android:layout_toRightOf="@id/iv_launch_homeFragment"
             android:background="@mipmap/bg_guide_point"
             android:gravity="center"
+            android:layout_centerInParent="true"
             android:orientation="horizontal">
 
             <ImageView
@@ -48,22 +49,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:layout_marginTop="10dp">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/viewPager_home"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp">
+            android:layout_width="match_parent"
+            android:layout_height="160dp">
         </android.support.v4.view.ViewPager>
 
         <LinearLayout
             android:id="@+id/layout_dot_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="25dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <ImageView
@@ -71,16 +72,19 @@
                 android:layout_height="20dp"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/head_dot"/>
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/head_dot"/>
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginRight="10dp"
                 android:src="@drawable/head_dot"/>
+
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -90,4 +94,86 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="#a0a0a0"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_dot"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_temai_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="品牌特卖"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/tv_update_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="折扣限时抢购,每天10:00准时上新"
+            android:textSize="10sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#a0a0a0"/>
+
+    <ImageView
+        android:id="@+id/iv_temai_home"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="160dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/default_projects_small300_150"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+<TextView
+    android:id="@+id/tv_zhekou_home"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="3折起"
+    android:textColor="#ffffff"
+    android:background="#ff2d4b"
+    android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/tv_title_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tv_zhekou_home"
+            android:layout_marginLeft="10dp"
+            android:text="夏季果干碰碰乐"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_clock"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/tv_time_home"/>
+        <TextView
+            android:id="@+id/tv_time_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:text="仅剩4天16:05:16"/>
+
+    </RelativeLayout>
 </LinearLayout>
