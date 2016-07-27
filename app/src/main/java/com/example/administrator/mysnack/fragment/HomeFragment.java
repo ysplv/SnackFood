@@ -93,7 +93,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     HeadEntity headEntity = gson.fromJson(response, HeadEntity.class);
                     List<HeadEntity.DataBean.TopicsBean> topicsList = headEntity.getData().getTopics();//头集合
                     fragments = new ArrayList<>();//fragment集合
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < topicsList.size(); i++) {
                         String imgUrl = topicsList.get(i).getImg().getImg_url();
                         String info = topicsList.get(i).getAction().getInfo();
                         initFragment(imgUrl, info);
