@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.example.administrator.mysnack.HeadDetailActivity;
+import com.example.administrator.mysnack.activity.HeadDetailActivity;
 import com.example.administrator.mysnack.R;
 import com.example.administrator.mysnack.app.MyApp;
 import com.example.administrator.mysnack.utils.MyImageCache;

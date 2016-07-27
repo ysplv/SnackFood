@@ -1,4 +1,4 @@
-package com.example.administrator.mysnack;
+package com.example.administrator.mysnack.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.administrator.mysnack.R;
 import com.example.administrator.mysnack.fragment.HomeFragment;
 import com.example.administrator.mysnack.fragment.MineFragment;
 import com.example.administrator.mysnack.fragment.SaleFragment;
