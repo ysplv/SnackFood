@@ -21,7 +21,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:orientation="vertical"
-        android:background="@drawable/bg_cart_operation">
+        android:background="@drawable/bg_user">
         <ImageView
             android:id="@+id/image_heart_subject_item"
             android:src="@drawable/collect_dot"

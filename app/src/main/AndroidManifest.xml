@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".HeadDetailActivity">
         </activity>
+        <activity android:name=".TeMaiActivity">
+        </activity>
     </application>
 
 </manifest>

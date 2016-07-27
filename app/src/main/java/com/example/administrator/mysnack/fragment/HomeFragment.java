@@ -1,6 +1,7 @@
 package com.example.administrator.mysnack.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -16,7 +17,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
+import com.example.administrator.mysnack.HeadDetailActivity;
 import com.example.administrator.mysnack.R;
+import com.example.administrator.mysnack.TeMaiActivity;
 import com.example.administrator.mysnack.adapter.HeadFragmentAdapter;
 import com.example.administrator.mysnack.app.MyApp;
 import com.example.administrator.mysnack.entity.HeadEntity;
@@ -42,6 +45,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private TextView tvTime;
     private TextView tvTitle;
     private ImageView ivTeMai;
+    private ImageView ivSpecials1, ivSpecials2, ivSpecials3, ivSpecials4;
+    private TextView newTitleBig;
+    protected TextView newTiteSml;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,14 +108,76 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     String discount = brands.get(0).getDiscount();
                     tvZheKou.setText(discount);
                     int time = brands.get(0).getTime();
-                    tvTime.setText("仅剩"+time);
+                    tvTime.setText("仅剩" + time);
                     String title = brands.get(0).getTitle();
                     tvTitle.setText(title);
                     String img_url = brands.get(0).getImg().getImg_url();
+                    final int id = brands.get(0).getId();
+                    ivTeMai.setOnClickListener(new View.OnClickListener() {//图片的监听
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), TeMaiActivity.class);
+                            intent.putExtra("id", id);
+                            startActivity(intent);
+
+                        }
+                    });
+
                     //下载图片
-                    ImageLoader imageLoader=new ImageLoader(MyApp.getQueue(),new MyImageCache());
-                    ImageLoader.ImageListener listener=ImageLoader.getImageListener(ivTeMai,R.drawable.default_projects_small300_150,R.drawable.default_projects_small300_150);
-                    imageLoader.get(img_url,listener,0,0);
+                    ImageLoader imageLoader = new ImageLoader(MyApp.getQueue(), new MyImageCache());
+                    ImageLoader.ImageListener listener = ImageLoader.getImageListener(ivTeMai, R.drawable.default_projects_small300_150, R.drawable.default_projects_small300_150);
+                    imageLoader.get(img_url, listener, 0, 0);
+                    //特别
+                    List<HeadEntity.DataBean.SpecialsBean> specials = headEntity.getData().getSpecials();
+                    String img_url1 = specials.get(0).getImg().getImg_url();
+                    final String info1 = specials.get(0).getAction().getInfo();
+                    initImageLoader(ivSpecials1, img_url1);
+                    ivSpecials1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), HeadDetailActivity.class);
+                            intent.putExtra("info", info1);
+                            startActivity(intent);
+                        }
+                    });
+                    String img_url2 = specials.get(1).getImg().getImg_url();
+                    final String info2 = specials.get(1).getAction().getInfo();
+                    initImageLoader(ivSpecials2, img_url2);
+                    ivSpecials2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), HeadDetailActivity.class);
+                            intent.putExtra("info", info2);
+                            startActivity(intent);
+                        }
+                    });
+                    String img_url3 = specials.get(2).getImg().getImg_url();
+                    final String info3= specials.get(2).getAction().getInfo();
+                    initImageLoader(ivSpecials3, img_url3);
+                    ivSpecials3.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), HeadDetailActivity.class);
+                            intent.putExtra("info", info3);
+                            startActivity(intent);
+                        }
+                    });
+                    String img_url4 = specials.get(3).getImg().getImg_url();
+                    final String info4 = specials.get(3).getAction().getInfo();
+                    initImageLoader(ivSpecials4, img_url4);
+                    ivSpecials4.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), HeadDetailActivity.class);
+                            intent.putExtra("info", info4);
+                            startActivity(intent);
+                        }
+                    });
+                    //好吃到爆
+                    String new_title_big = headEntity.getData().getNew_title_big();
+                    newTitleBig.setText(new_title_big);
+                    String new_title_sml = headEntity.getData().getNew_title_sml();
+                    newTiteSml.setText(new_title_sml);
                 }
             }
         }, new Response.ErrorListener() {
@@ -121,6 +189,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         stringRequest.setTag("qx");//设置取消标记
         MyApp.getQueue().add(stringRequest);//放入请求队列
 
+    }
+
+    //图片下载
+    private void initImageLoader(ImageView ivSpecials, String img_url) {
+        ImageLoader imageLoader = new ImageLoader(MyApp.getQueue(), new MyImageCache());
+        ImageLoader.ImageListener listener = ImageLoader.getImageListener(ivSpecials, R.drawable.default_projects_small300_150, R.drawable.default_projects_small300_150);
+        imageLoader.get(img_url, listener, 0, 0);
     }
 
     private void initViewPager() {
@@ -153,12 +228,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private void initView(View view) {
         viewPager = (ViewPager) view.findViewById(R.id.viewPager_home);
         layout = (LinearLayout) view.findViewById(R.id.layout_dot_home);
-        tvTeMai = (TextView)view.findViewById(R.id.tv_temai_home);
-        tvUpDate = (TextView)view.findViewById(R.id.tv_update_home);
-        tvZheKou = (TextView)view.findViewById(R.id.tv_zhekou_home);
-        tvTime = (TextView)view.findViewById(R.id.tv_time_home);
-        tvTitle = (TextView)view.findViewById(R.id.tv_title_home);
-        ivTeMai = (ImageView)view.findViewById(R.id.iv_temai_home);
+        tvTeMai = (TextView) view.findViewById(R.id.tv_temai_home);
+        tvUpDate = (TextView) view.findViewById(R.id.tv_update_home);
+        tvZheKou = (TextView) view.findViewById(R.id.tv_zhekou_home);
+        tvTime = (TextView) view.findViewById(R.id.tv_time_home);
+        tvTitle = (TextView) view.findViewById(R.id.tv_title_home);
+        ivTeMai = (ImageView) view.findViewById(R.id.iv_temai_home);
+        ivSpecials1 = (ImageView) view.findViewById(R.id.iv_specials1_home);
+        ivSpecials2 = (ImageView) view.findViewById(R.id.iv_specials2_home);
+        ivSpecials3 = (ImageView) view.findViewById(R.id.iv_specials3_home);
+        ivSpecials4 = (ImageView) view.findViewById(R.id.iv_specials4_home);
+        newTitleBig = (TextView)view.findViewById(R.id.tv_newTitleBig_home);
+        newTiteSml = (TextView) view.findViewById(R.id.tv_newTitleSml_home);
 
     }
 

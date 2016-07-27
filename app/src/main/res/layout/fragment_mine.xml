@@ -25,7 +25,7 @@
 
             android:layout_marginRight="15dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/btn_car_white" />
+            android:src="@drawable/btn_cart_normal" />
 
         <ImageView
             android:layout_width="80dp"
