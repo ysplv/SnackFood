@@ -53,12 +53,12 @@ public class HeadDetailActivity extends AppCompatActivity implements View.OnClic
                 if (response != null) {
                    // Log.e(TAG, "========onResponse: " + response);
                     try {
-                        JSONObject jo1=new JSONObject(response);
-                        JSONObject jo2=jo1.getJSONObject("data");
-                        JSONArray ja1=jo2.getJSONArray("items");
-                        for (int i = 0; i <ja1.length() ; i++) {
-                            HeadDetailEntity entity=new HeadDetailEntity();
-                            JSONObject jo3= (JSONObject) ja1.get(i);
+                                JSONObject jo1=new JSONObject(response);
+                                JSONObject jo2=jo1.getJSONObject("data");
+                                JSONArray ja1=jo2.getJSONArray("items");
+                                for (int i = 0; i <ja1.length() ; i++) {
+                                    HeadDetailEntity entity=new HeadDetailEntity();
+                                    JSONObject jo3= (JSONObject) ja1.get(i);
                             entity.setTitle(jo3.getString("title"));
                             entity.setImg_url(jo3.getJSONObject("img").getString("img_url"));
                             entity.setCurrent(jo3.getJSONObject("price").getDouble("current"));

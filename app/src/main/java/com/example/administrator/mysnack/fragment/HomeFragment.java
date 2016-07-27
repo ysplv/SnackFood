@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,11 +23,18 @@ import com.example.administrator.mysnack.HeadDetailActivity;
 import com.example.administrator.mysnack.R;
 import com.example.administrator.mysnack.TeMaiActivity;
 import com.example.administrator.mysnack.adapter.HeadFragmentAdapter;
+import com.example.administrator.mysnack.adapter.MyListViewAdapter;
 import com.example.administrator.mysnack.app.MyApp;
+import com.example.administrator.mysnack.entity.HeadDetailEntity;
 import com.example.administrator.mysnack.entity.HeadEntity;
 import com.example.administrator.mysnack.url.Url;
 import com.example.administrator.mysnack.utils.MyImageCache;
+import com.example.administrator.mysnack.view.InnerListView;
 import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +57,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private ImageView ivSpecials1, ivSpecials2, ivSpecials3, ivSpecials4;
     private TextView newTitleBig;
     protected TextView newTiteSml;
+    protected InnerListView lvHaoChi;
+    private String path="http://api.ds.lingshi.cccwei.com/?cid=109&uid=0&tms=20160716043427&sig=e0860e43ba43e817&wssig=f8082da2737d5a0d&os_type=3&version=24&channel_name=feibo&srv=2206&since_id=0&pg_cur=1&pg_size=20";
+    private List<HeadDetailEntity>data;
+    protected ScrollView srollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +69,48 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         initView(view);//初始化控件
         initData();//初始化数据
         initDot();//初始化小点
+        initData1();//初始化ListView数据
         return view;
+    }
+
+    private void initData1() {
+        StringRequest stringRequest1=new StringRequest(Request.Method.GET, path, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (response != null) {
+                   // Log.e(TAG, "========onResponse====2===: " + response);
+                    data=new ArrayList<>();
+                    try {
+                        JSONObject jo1=new JSONObject(response);
+                        JSONObject jo2=jo1.getJSONObject("data");
+                        JSONArray ja1=jo2.getJSONArray("items");
+                        for (int i = 0; i <ja1.length() ; i++) {
+                            HeadDetailEntity entity=new HeadDetailEntity();
+                            JSONObject jo3= (JSONObject) ja1.get(i);
+                            entity.setTitle(jo3.getString("title"));
+                            entity.setImg_url(jo3.getJSONObject("img").getString("img_url"));
+                            entity.setCurrent(jo3.getJSONObject("price").getDouble("current"));
+                            entity.setPrime(jo3.getJSONObject("price").getDouble("prime"));
+                            data.add(entity);
+                        }
+                        Log.e(TAG, "========onResponse====data===: "+data.size()+"====="+data.toString() );
+                        MyListViewAdapter adapter=new MyListViewAdapter(getActivity(),data);
+                        lvHaoChi.setAdapter(adapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        stringRequest1.setTag("quxiao");
+        MyApp.getQueue().add(stringRequest1);
     }
 
     //初始化Fragment
@@ -93,7 +147,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     HeadEntity headEntity = gson.fromJson(response, HeadEntity.class);
                     List<HeadEntity.DataBean.TopicsBean> topicsList = headEntity.getData().getTopics();//头集合
                     fragments = new ArrayList<>();//fragment集合
+                    Log.e(TAG, "=====onResponse====A====: "+topicsList.size() );
                     for (int i = 0; i < topicsList.size(); i++) {
+
                         String imgUrl = topicsList.get(i).getImg().getImg_url();
                         String info = topicsList.get(i).getAction().getInfo();
                         initFragment(imgUrl, info);
@@ -240,7 +296,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         ivSpecials4 = (ImageView) view.findViewById(R.id.iv_specials4_home);
         newTitleBig = (TextView)view.findViewById(R.id.tv_newTitleBig_home);
         newTiteSml = (TextView) view.findViewById(R.id.tv_newTitleSml_home);
-
+        lvHaoChi = (InnerListView)view.findViewById(R.id.lv_haochi_home);
+        srollView = (ScrollView)view.findViewById(R.id.scrollView_home);
+        srollView.smoothScrollTo(0, 55);
     }
 
     //小点的监听事件
@@ -258,5 +316,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         MyApp.getQueue().cancelAll("qx");//销毁
+        MyApp.getQueue().cancelAll("quxiao");
     }
 }

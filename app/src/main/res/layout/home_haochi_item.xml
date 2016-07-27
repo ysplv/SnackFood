@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_haochi_item"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:scaleType="fitXY"
+        android:layout_margin="10dp"
+        android:src="@drawable/default_class_brand612_250"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       >
+        <TextView
+            android:id="@+id/tv_title_item"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="好吃到爆炸"/>
+        <TextView
+            android:id="@+id/tv_current_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:textColor="#ff2d4b"
+            android:text="￥17.80"/>
+    </RelativeLayout>
+
+</LinearLayout>
