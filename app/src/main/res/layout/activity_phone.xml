@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.mysnack.activity.PhoneActivity">
+
+    <LinearLayout
+        android:onClick="click"
+        android:id="@+id/linearlayout_phone_mine"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/btn_taste_normal2x"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="#ff000000"
+                android:id="@+id/text_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="客服电话:010-57236350" />
+
+            <TextView
+                android:textColor="#ff000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/text_phone"
+                android:layout_below="@+id/text_phone"
+                android:layout_centerInParent="true"
+                android:text="客服微信:lingshixiaomiao" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:background="#88888888"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:clickable="true"
+                    android:id="@+id/text_weixin"
+                    android:onClick="click"
+                    android:textColor="#ff000000"
+                    android:gravity="center"
+                    android:text="复制微信号"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:background="#88888888"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/text_call"
+                    android:onClick="click"
+                    android:clickable="true"
+                    android:textColor="#ff000000"
+                    android:gravity="center"
+                    android:text="拨打电话"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
