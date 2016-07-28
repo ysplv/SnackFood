@@ -8,6 +8,7 @@ public class HeadDetailEntity {
     private String img_url;
     private double current;
     private double prime;
+    private int id;
 
     public String getTitle() {
         return title;
@@ -39,5 +40,13 @@ public class HeadDetailEntity {
 
     public void setPrime(double prime) {
         this.prime = prime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

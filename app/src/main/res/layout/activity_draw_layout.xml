@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.mysnack.DrawLayoutActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+    <ImageView
+        android:id="@+id/iv_back_drawLayout"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/btn_header_back_normal"/>
+    <TextView
+        android:id="@+id/tv_titleName_drawlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="坚果蜜饯"
+        android:textSize="20sp"
+        android:layout_centerInParent="true"/>
+    <ImageView
+        android:id="@+id/iv_cartshop_drawLayout"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_cart_normal"/>
+</RelativeLayout>
+   <!-- <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d3d5d7"/>-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout_drawlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIndicatorColor="#ffff2d4b"
+        app:tabSelectedTextColor="#ffff2d4b"
+        app:tabTextColor="#ff000000"
+        app:tabMode="scrollable">
+
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:layout_marginTop="10dp"
+        android:id="@+id/viewpager_drawlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v4.view.ViewPager>
+</LinearLayout>
