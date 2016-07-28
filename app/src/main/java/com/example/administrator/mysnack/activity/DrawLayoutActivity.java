@@ -1,4 +1,4 @@
-package com.example.administrator.mysnack;
+package com.example.administrator.mysnack.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.administrator.mysnack.R;
 import com.example.administrator.mysnack.adapter.DrawlayoutFragmentPagerAdapter;
 import com.example.administrator.mysnack.app.MyApp;
 import com.example.administrator.mysnack.entity.DrawTitelEntity;

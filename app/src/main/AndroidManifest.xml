@@ -25,10 +25,10 @@
             android:theme="@style/MyDialogStyle">
 
         </activity>
-        <activity android:name=".HaochiWebViewActivity">
+        <activity android:name=".activity.HaochiWebViewActivity">
         </activity>
         <activity
-            android:name=".DrawLayoutActivity"
+            android:name=".activity.DrawLayoutActivity"
             android:label="@string/title_activity_draw_layout"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>

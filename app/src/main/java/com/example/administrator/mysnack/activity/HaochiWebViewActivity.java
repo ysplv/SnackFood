@@ -1,4 +1,4 @@
-package com.example.administrator.mysnack;
+package com.example.administrator.mysnack.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+
+import com.example.administrator.mysnack.R;
 
 public class HaochiWebViewActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = HaochiWebViewActivity.class.getSimpleName();
