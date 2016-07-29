@@ -17,6 +17,7 @@ import com.example.administrator.mysnack.R;
 import com.example.administrator.mysnack.adapter.HeadRecyclerVeiwAdapter;
 import com.example.administrator.mysnack.app.MyApp;
 import com.example.administrator.mysnack.entity.HeadDetailEntity;
+import com.example.administrator.mysnack.utils.SpaceItemDecoration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -69,10 +70,12 @@ public class HeadDetailActivity extends AppCompatActivity implements View.OnClic
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.e(TAG, "============onResponse: "+data.toString() );
+                    Log.e(TAG, "============onResponse: " + data.toString());
                     GridLayoutManager layoutManager=new GridLayoutManager(HeadDetailActivity.this,2);
                     recyclerView.setLayoutManager(layoutManager);
                     HeadRecyclerVeiwAdapter adapter=new HeadRecyclerVeiwAdapter(HeadDetailActivity.this,data);
+                    recyclerView.addItemDecoration(new SpaceItemDecoration(10));
+
                     recyclerView.setAdapter(adapter);
                 }
 

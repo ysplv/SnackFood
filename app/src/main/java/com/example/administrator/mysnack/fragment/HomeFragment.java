@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,10 +25,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.StringRequest;
+import com.example.administrator.mysnack.R;
 import com.example.administrator.mysnack.activity.DrawLayoutActivity;
 import com.example.administrator.mysnack.activity.HaochiWebViewActivity;
 import com.example.administrator.mysnack.activity.HeadDetailActivity;
-import com.example.administrator.mysnack.R;
 import com.example.administrator.mysnack.activity.TeMaiActivity;
 import com.example.administrator.mysnack.adapter.HeadFragmentAdapter;
 import com.example.administrator.mysnack.adapter.ListViewAdapterDrawlayout;
@@ -37,6 +38,7 @@ import com.example.administrator.mysnack.entity.HeadDetailEntity;
 import com.example.administrator.mysnack.entity.HeadEntity;
 import com.example.administrator.mysnack.url.Url;
 import com.example.administrator.mysnack.utils.MyImageCache;
+import com.example.administrator.mysnack.utils.TiemTool;
 import com.example.administrator.mysnack.view.InnerListView;
 import com.google.gson.Gson;
 
@@ -69,21 +71,46 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private String path = "http://api.ds.lingshi.cccwei.com/?cid=109&uid=0&tms=20160716043427&sig=e0860e43ba43e817&wssig=f8082da2737d5a0d&os_type=3&version=24&channel_name=feibo&srv=2206&since_id=0&pg_cur=1&pg_size=20";
     private List<HeadDetailEntity> data;
     protected ScrollView srollView;
+    private int time;
+    private Fragment[]fragmentArray=new Fragment[2];
 
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            int j = msg.arg1;
-            if (imageViews.size() == 4) {
-                viewPager.setCurrentItem(j);
-                imageViews.get(j).setEnabled(false);
+            switch (msg.what) {
+                case 0:
+                   time-=1000;
+                    String difference = TiemTool.getDifference(time);//倒计时
+                    tvTime.setText("仅剩" + difference);
+                    break;
+                case 2:
+                    tvTime.setText("倒计时结束");
+                    break;
+                case 1:
+                    int j = msg.arg1;
+                    if (imageViews.size() == 4) {
+                        viewPager.setCurrentItem(j);
+                        imageViews.get(j).setEnabled(false);
+                    }
+
+                    break;
             }
 
-        };
+        }
+
+        ;
     };
     protected ImageView ivDrawBack;
     protected DrawerLayout drawerLayout;
     protected LinearLayout layout1;
     protected ListView lvDrawlayout;
+    private FrameLayout frameLayout;
+    private LinearLayout reMaiLayout1;
+    private LinearLayout reMaiLayout2;
+    private TextView tvReMail;
+    private TextView tvReMai2;
+    private TextView tvLine1;
+    private TextView tvLine2;
+    private Fragment currentFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -104,6 +131,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     i = i % 2;
 
                     Message msg = new Message();
+                    msg.what = 1;
                     msg.arg1 = i;
 
                     handler.sendMessage(msg);
@@ -150,10 +178,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 Intent intent = new Intent(getActivity(), HaochiWebViewActivity.class);
-                                HeadDetailEntity headDetatilEntity=data.get(i);
-                                int id=headDetatilEntity.getId();
-                                Log.e(TAG, "========onItemClick: "+id );
-                                intent.putExtra("id",id);
+                                HeadDetailEntity headDetatilEntity = data.get(i);
+                                int id = headDetatilEntity.getId();
+                                Log.e(TAG, "========onItemClick: " + id);
+                                intent.putExtra("id", id);
                                 startActivity(intent);
                             }
                         });
@@ -224,8 +252,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     List<HeadEntity.DataBean.BrandsBean> brands = headEntity.getData().getBrands();
                     String discount = brands.get(0).getDiscount();
                     tvZheKou.setText(discount);
-                    int time = brands.get(0).getTime();
-                    tvTime.setText("仅剩" + time);
+                    time = brands.get(0).getTime();
+//                    time=7000;
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            super.run();
+                            while (true) {
+                                Message msg = handler.obtainMessage();
+                                if (time==0){
+                                    msg.what=2;
+                                    handler.sendMessage(msg);
+                                    break;
+                                }
+                                msg.what = 0;
+                                handler.sendMessage(msg);
+                                try {
+                                    Thread.sleep(1000);
+
+
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+
+                        }
+                    }.start();
+
                     String title = brands.get(0).getTitle();
                     tvTitle.setText(title);
                     String img_url = brands.get(0).getImg().getImg_url();
@@ -297,16 +351,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                     newTiteSml.setText(new_title_sml);
                     //抽屉
                     final List<HeadEntity.DataBean.ClassifiesBean> classifies = headEntity.getData().getClassifies();
-                    ListViewAdapterDrawlayout adapterDrawlayout=new ListViewAdapterDrawlayout(getActivity(),classifies);
+                    ListViewAdapterDrawlayout adapterDrawlayout = new ListViewAdapterDrawlayout(getActivity(), classifies);
                     lvDrawlayout.setAdapter(adapterDrawlayout);
                     lvDrawlayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             int id1 = classifies.get(i).getId();
                             String title1 = classifies.get(i).getTitle();
-                            Intent intent=new Intent(getActivity(), DrawLayoutActivity.class);
-                            intent.putExtra("id1",id1);
-                            intent.putExtra("title1",title1);
+                            Intent intent = new Intent(getActivity(), DrawLayoutActivity.class);
+                            intent.putExtra("id1", id1);
+                            intent.putExtra("title1", title1);
                             startActivity(intent);
                         }
                     });
@@ -374,10 +428,49 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         newTiteSml = (TextView) view.findViewById(R.id.tv_newTitleSml_home);
         lvHaoChi = (InnerListView) view.findViewById(R.id.lv_haochi_home);
         srollView = (ScrollView) view.findViewById(R.id.scrollView_home);
+        frameLayout = (FrameLayout)view.findViewById(R.id.frameLayout_home);//放碎片
+        for (int i = 0; i < 2; i++) {
+            MoreTeMaiFragment fragment=new MoreTeMaiFragment();
+            Bundle  bundle=new Bundle();
+            bundle.putInt("type",1-i);
+            fragment.setArguments(bundle);
+            fragmentArray[i]=fragment;
+        }
+        currentFragment=fragmentArray[0];
+        //默认显示第一个
+        getActivity().getSupportFragmentManager().beginTransaction().add(R.id.frameLayout_home,fragmentArray[0]).commit();
+        tvReMail = (TextView)view.findViewById(R.id.tv_remai1_home);
+        tvReMail.setTextColor(0xffff2d4b);
+        tvReMai2 = (TextView)view.findViewById(R.id.tv_remai2_home);
+        tvLine1 = (TextView)view.findViewById(R.id.tv_line1_home);
+        tvLine1.setBackgroundColor(0xffff2d4b);
+        tvLine2 = (TextView)view.findViewById(R.id.tv_line2_home);
+        reMaiLayout1= (LinearLayout)view.findViewById(R.id.liner1_remai_home);
+        reMaiLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeTvTeMai();
+                tvReMail.setTextColor(0xffff2d4b);
+                tvLine1.setBackgroundColor(0xffff2d4b);
+                switchFragment(currentFragment,fragmentArray[0]);
+
+
+            }
+        });
+        reMaiLayout2 = (LinearLayout)view.findViewById(R.id.liner2_remai_home);
+        reMaiLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeTvTeMai();
+                tvReMai2.setTextColor(0xffff2d4b);
+                tvLine2.setBackgroundColor(0xffff2d4b);
+                switchFragment(currentFragment,fragmentArray[1]);
+            }
+        });
         srollView.smoothScrollTo(0, 0);
-        drawerLayout = (DrawerLayout)view.findViewById(R.id.drawlayout_home);
-        layout1 = (LinearLayout)view.findViewById(R.id.linearlayout_drawlayout_home);
-        ivDrawBack = (ImageView)view.findViewById(R.id.iv_launch_homeFragment);//抽屉按钮
+        drawerLayout = (DrawerLayout) view.findViewById(R.id.drawlayout_home);
+        layout1 = (LinearLayout) view.findViewById(R.id.linearlayout_drawlayout_home);
+        ivDrawBack = (ImageView) view.findViewById(R.id.iv_launch_homeFragment);//抽屉按钮
         ivDrawBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -385,9 +478,27 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
             }
         });
-        lvDrawlayout = (ListView)view.findViewById(R.id.listView_drawlayout_home);
+        lvDrawlayout = (ListView) view.findViewById(R.id.listView_drawlayout_home);
     }
-
+    //fragment切换
+    public void switchFragment(Fragment from,Fragment to){
+        if (from==to){
+            return;
+        }
+        if (!to.isAdded()){
+            getActivity().getSupportFragmentManager().beginTransaction().hide(from).add(R.id.frameLayout_home,to).commit();
+        }else {
+            getActivity().getSupportFragmentManager().beginTransaction().hide(from).show(to).commit();
+        }
+        currentFragment=to;
+    }
+//更多热卖
+    public void changeTvTeMai(){
+        tvReMail.setTextColor(0xff000000);
+        tvReMai2.setTextColor(0xff000000);
+        tvLine1.setBackgroundColor(0xffffffff);
+        tvLine2.setBackgroundColor(0xffffffff);
+    }
     //小点的监听事件
     @Override
     public void onClick(View view) {
